@@ -37,16 +37,15 @@
 			...mapActions(organization.actions),
 
 			handel () {
-				this.$router.push({
-					name: 'students',
-				})
 				this.setOrganizationInfo({
 					organizationId: this.organizationId,
 					organName: this.organizationName,
 					teacherId: this.teacherId,
 					teacherName: this.teacherName,
 				})
-				// this.$bus.$emit('set-organ-name', this.organizationName)
+				this.$router.push({
+					name: 'students',
+				})
 			},
 			toDeleteOrganization () {
 				this.deleteOrganization({
@@ -167,14 +166,14 @@
 	    font-size: 27px;
     	bottom: -6px;
     	left: 40px;
-		color: rgba(0, 0, 0, 0.22);
+		color: #9e9e9e;
 	}
 	.upload-organ {
 		position: absolute;
     	bottom: -6px;
     	left: 10px;
 	    font-size: 30px;
-		color: rgba(0, 0, 0, 0.22);
+		color: #9e9e9e;
 	}
 	.exit-organ:hover, .upload-organ:hover {
 		color: rgb(0, 188, 155);

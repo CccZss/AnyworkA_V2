@@ -26,11 +26,11 @@
 		props: ['questionItem', 'index'],
 		computed: {
 			yourAnswer () {
-				var arr = this.questionItem.studentAnswer.split('#')
+				var arr = this.questionItem.studentAnswer.split('∏')
 				return arr.join('   ；   ')
 			},
 			trueAnswer () {
-				var arr = this.questionItem.question.key.split('#')
+				var arr = this.questionItem.question.key.split('∏')
 				return arr.join('   ；   ')
 			}
 		},

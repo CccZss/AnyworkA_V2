@@ -12,69 +12,13 @@ const state = {
 	testpaperScore: undefined,
     organizationId: undefined,
     authorId: undefined,
-	allTestPaperList: [],
-    allPracticePaperList: [],
     paperQuestionList: [],     
     questionAnswerInfo: {},
     testChapterList: [],
-    myPracticeList: [],
-    myTestList: []
+    studentList: []
 }
 
 const actions = {
-	[types.actions.getAllTestPapers]: (context, data) => {
-		return new Promise((resolve, reject) => {
-			myAxios({
-				method: 'POST',
-				url: '/test/testList',
-				data: data
-			}).then(function(res){
-                 if(res.data.state.toString()==="1"){
-                    context.commit(types.mutations.setInfo,{
-                    	allTestPaperList: res.data.data,
-                    })
-                    resolve({
-                        state: true,
-                        info: res.data.stateInfo}
-                    )
-                }else{
-                    resolve({
-                        state: false,
-                        info: res.data.stateInfo}
-                    )
-                }
-            }).catch(function(err){
-                reject(err)
-            })
-		})
-	},
-    
-    [types.actions.getAllPracticePapers]: (context, data) => {
-        return new Promise((resolve, reject) => {
-            myAxios({
-                method: 'POST',
-                url: '/test/practiceList',
-                data: data
-            }).then(function(res){
-                 if(res.data.state.toString()==="1"){
-                    context.commit(types.mutations.setInfo,{
-                        allPracticePaperList: res.data.data,
-                    })
-                    resolve({
-                        state: true,
-                        info: res.data.stateInfo}
-                    )
-                }else{
-                    resolve({
-                        state: false,
-                        info: res.data.stateInfo}
-                    )
-                }
-            }).catch(function(err){
-                reject(err)
-            })
-        })
-    },
 
     [types.actions.getPracticeListByChapter]: (context, data) => {
         return new Promise((resolve, reject) => {
@@ -86,33 +30,6 @@ const actions = {
                  if(res.data.state.toString()==="1"){
                     context.commit(types.mutations.setInfo,{
                         allPracticePaperList: res.data.data,
-                    })
-                    resolve({
-                        state: true,
-                        info: res.data.stateInfo}
-                    )
-                }else{
-                    resolve({
-                        state: false,
-                        info: res.data.stateInfo}
-                    )
-                }
-            }).catch(function(err){
-                reject(err)
-            })
-        })
-    },
-
-    [types.actions.getAllChapter]: (context, data) => {
-        return new Promise( (resolve, reject) => {
-            myAxios({
-                method: 'POST',
-                url: '/test/chapter',
-                data: data
-            }).then(function(res){
-                if(res.data.state.toString()==="1"){
-                    context.commit(types.mutations.setInfo,{
-                        testChapterList: res.data.data,
                     })
                     resolve({
                         state: true,
@@ -193,7 +110,7 @@ const actions = {
         })
     },
 
-    [types.actions.getAllTestChapter]: (context, data) => {
+    [types.actions.getChapterList]: (context, data) => {
         return new Promise((resolve, reject) => {
             myAxios({
                 method: 'POST',
@@ -230,6 +147,33 @@ const actions = {
                  if(res.data.state.toString()==="1"){
                     context.commit(types.mutations.setInfo,{
                         questionAnswerInfo: res.data.data,
+                    })
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo}
+                    )
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+            }).catch(function(err){
+                reject(err)
+            })
+        })
+    },
+
+    [types.actions.getStudentsByTest]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            myAxios({
+                method: 'POST',
+                url: '/teacher/lookTest',
+                data: data
+            }).then(function(res){
+                 if(res.data.state.toString()==="1"){
+                    context.commit(types.mutations.setInfo,{
+                        studentList: res.data.data,
                     })
                     resolve({
                         state: true,

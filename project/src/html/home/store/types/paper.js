@@ -5,11 +5,10 @@ export default namespace('paper', {
         'getAllTestPapers',
         'getAllPracticePapers',
         'getPracticeListByChapter',
-        'getAllChapter',
+        'getChapterList',
         'getPaperInfo',
         'setPaperInfo',
         'submitPaper',
-        'getAllTestChapter',
         'getPaperAnswerById',
         'getMyTestPaper',
         'getMyPracticePaper'

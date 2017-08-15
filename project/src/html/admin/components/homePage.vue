@@ -1,7 +1,7 @@
 <template>
   	<div class="layout">
         <div class="layout-menu-left">
-            <Menu :active-name="activeName" theme="dark" width="auto" @on-select="onSelect" @on-open-change="onOpenChange">
+            <Menu ref="leftMenu" :active-name="activeName" theme="dark" width="auto" @on-select="onSelect" @on-open-change="onOpenChange">
                 <div class="layout-logo-left">{{organName}}</div>
                 <Submenu name="organization" v-show="showSubmenu" >
                     <template slot="title">
@@ -12,7 +12,7 @@
                     <Menu-item name="tests">组织中的试卷</Menu-item>
                     <Menu-item name="practices">组织中的练习</Menu-item>
                 </Submenu>
-                <Submenu name="paper" v-show="showSubmenu">
+                <Submenu name="paper" v-if="showSubmenu">
                     <template slot="title">
                         <Icon type="ios-keypad"></Icon>
                         出卷
@@ -20,7 +20,7 @@
                     <Menu-item name="createTest">考试</Menu-item>
                     <Menu-item name="createPractice">练习</Menu-item>
                 </Submenu>
-                <Submenu name="info" v-show="showSubmenu">
+                <Submenu name="info" v-if="showSubmenu">
                     <template slot="title">
                         <Icon type="ios-analytics"></Icon>
                         通知
@@ -37,7 +37,7 @@
                 </Breadcrumb>
             </div>
             <div class="layout-content">
-                <router-view class="view layout-content-main"></router-view>
+                <router-view class="view"></router-view>
             </div>
         </div>
     </div>
@@ -100,13 +100,13 @@
                 this.organName = this.organization.organName
             }
         },
-
         beforeRouteUpdate (to, from, next) {
-
-            this.breadCrumbList = to.matched.map(function(item){
+            var matchedArray = to.path.split('\/')
+            matchedArray.shift()
+            this.breadCrumbList = matchedArray.map(function(item, index){
                 return {
-                   path: item.path,
-                   name: item.props.default.name
+                   path: to.matched[0].props.default.path[item],
+                   name: to.matched[0].props.default.name[item]
                 }
             })
             if(to.name !== 'organizations') {
@@ -136,6 +136,7 @@
     .layout-menu-left{
         position: fixed;
         top: 0px;
+        left: 0;
         width: 250px;
         overflow-y: auto;
         background: #464c5b;
@@ -150,8 +151,8 @@
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
         overflow: hidden;
     }
-    .layout-content-main {
-        padding: 10px 10px 10px 0;
+    .view {
+        padding: 10px 10px 10px 10px;
     }
     .layout-ceiling-main{
         float: right;

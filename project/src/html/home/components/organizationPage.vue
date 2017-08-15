@@ -89,8 +89,8 @@
 				})
 			},
 
-			toGetAllChapter () {
-				this.getAllChapter({
+			toGetChapterList () {
+				this.getChapterList({
 					organizationId: this.organizationId
 				}).then((data) => {
 					if(data.state){
@@ -127,7 +127,7 @@
 				})
 			}else{
 				this.toGetAllTestPapers()
-				this.toGetAllChapter()
+				this.toGetChapterList()
 			}
 		},
 	}

@@ -103,7 +103,7 @@ const actions = {
         })
     },
 
-    [types.actions.getAllChapter]: (context, data) => {
+    [types.actions.getChapterList]: (context, data) => {
         return new Promise( (resolve, reject) => {
             myAxios({
                 method: 'POST',
@@ -190,33 +190,6 @@ const actions = {
     [types.actions.setPaperInfo]: (context, data) => {
         return new Promise((resolve, reject) => {
             context.commit(types.mutations.setInfo, data)
-        })
-    },
-
-    [types.actions.getAllTestChapter]: (context, data) => {
-        return new Promise((resolve, reject) => {
-            myAxios({
-                method: 'POST',
-                url: '/test/chapter',
-                data: data
-            }).then(function(res){
-                if(res.data.state.toString()==="1"){
-                    context.commit(types.mutations.setInfo,{
-                        testChapterList: res.data.data,
-                    })
-                    resolve({
-                        state: true,
-                        info: res.data.stateInfo}
-                    )
-                }else{
-                    resolve({
-                        state: false,
-                        info: res.data.stateInfo}
-                    )
-                }
-            }).catch(function(err){
-                reject(err)
-            })
         })
     },
 

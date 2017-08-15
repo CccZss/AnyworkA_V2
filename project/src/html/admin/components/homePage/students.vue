@@ -1,16 +1,18 @@
 <template>
 	<section>
 		<loading :spinShow="spinShow" />
-		<ul>
-			<li class="student-item" v-for="item in studentsList" :key="item.userId">
-				<img :src=" '/anywork/picture/' + item.userId + '.jpg?' + refresh ">
-				<div>
-					<p><strong>姓名：</strong>{{item.userName}}</p>
-					<p><strong>账号：</strong>{{item.email}}</p> 
-					<p><strong>电话：</strong>{{item.phone}}</p>
-				</div>
-			</li>
-		</ul>
+		<div>
+			<student-item 
+				v-for="item in studentsList" 
+				:key="item.userId" 
+				:userId = "item.userId"
+				:userName = "item.userName" 
+				:email = "item.email" 
+				:phone = "item.phone"
+				:organizationId = "organization.organizationId"
+			/>
+		</div>
+		<p v-if="studentsList.length<=0" class="no-info"> 没有数据... </p>
 	</section>
 </template>
 
@@ -19,15 +21,16 @@
 	import organization from  '../../store/types/organization'
 
 	import loading from '../item/loading'
+	import studentItem from '../item/studentItem'
 	export default {
 		data () {
 			return {		
 				spinShow: false,
-				refresh: ''
 			}		
 		},
 		components: {
-			loading
+			loading,
+			'student-item': studentItem
 		},
 		computed: {
 			...mapState({
@@ -68,33 +71,9 @@
 	section {
 		position: relative;
 	}
-	ul {
-
+	.no-info {
+		margin-top: 30px;
+		text-align: center;
+		font-size: 20px;
 	}
-	.student-item {
-		float: left;
-		width: 350px;
-		box-shadow: 0 0 5px 1px #8c8c8c;
-		padding: 30px 10px;
-		margin: 10px 15px;
-		cursor: pointer;
-
-		&:hover {
-			box-shadow: 0 0 5px 1px #60c793
-		}
-
-		& img {
-			float: left;
-			display: inline-block;
-			width: 100px;
-			height: 100px;
-			margin-right: 10px;
-	    	border: 1px solid #dedede
-		}
-
-		& p {
-			margin-top: 10px;
-		}
-	}
-
 </style>

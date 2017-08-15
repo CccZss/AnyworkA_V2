@@ -11,7 +11,10 @@ const state = {
 	isJoin: undefined,
 	myOrganizationList: [],
 	searchResultList: [],
-	studentsList: []
+	studentsList: [],
+    studentTestList: [],  // 学生在该组织下完成过的试卷
+    organTestList: [],     //组织下的所有试卷
+    organPracticeList: []
 }
 
 const actions = {
@@ -180,6 +183,87 @@ const actions = {
             })
 		})
 	},
+
+    [types.actions.getStudentTestsById]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            myAxios({
+                method: 'POST',
+                url: '/organization/studentTest',
+                data: data
+            }).then(function(res){
+                 if(res.data.state.toString()==="1"){
+                    context.commit(types.mutations.setInfo,{
+                        studentTestList: res.data.data,
+                    })
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo}
+                    )
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+            }).catch(function(err){
+                reject(err)
+            })
+        })
+    },
+
+    [types.actions.getTestsByOrganId]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            myAxios({
+                method: 'POST',
+                url: '/test/testList',
+                data: data
+            }).then(function(res){
+                 if(res.data.state.toString()==="1"){
+                    context.commit(types.mutations.setInfo,{
+                        organTestList: res.data.data,
+                    })
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo}
+                    )
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+            }).catch(function(err){
+                reject(err)
+            })
+        })
+    },
+
+    [types.actions.getPracticesByOrganId]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            myAxios({
+                method: 'POST',
+                url: '/test/practiceList',
+                data: data
+            }).then(function(res){
+                 if(res.data.state.toString()==="1"){
+                    context.commit(types.mutations.setInfo,{
+                        organPracticeList: res.data.data,
+                    })
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo}
+                    )
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+            }).catch(function(err){
+                reject(err)
+            })
+        })
+    },
 
     [types.actions.setOrganizationInfo]: (context, data) => {
         context.commit(types.mutations.setInfo, data)
