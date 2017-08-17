@@ -106,18 +106,18 @@ export default {
         background: #5b6270;
         border-radius: 3px;
         margin: 15px auto;
-    }
+    }    
     .avator {
         vertical-align: middle;
         width: 28px;
         height: 28px;
-        border: 1px solid black;
+        border: 1px solid #b7b7b7;
         border-radius: 50%;
     }
     .user-name {
         margin-right: 20px;
+        color: #929292;
     }
-
 	@media only screen and (max-width: 768px){
 		
 	}

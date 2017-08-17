@@ -106,7 +106,18 @@ const actions = {
     
     [types.actions.setPaperInfo]: (context, data) => {
         return new Promise((resolve, reject) => {
-            context.commit(types.mutations.setInfo, data)
+            try{
+                context.commit(types.mutations.setInfo, data)
+                resolve({
+                    state: true,
+                    info: '设置数据成功'
+                })
+            }catch(err){
+                resolve({
+                    state: false,
+                    info: err.toString()
+                })
+            }
         })
     },
 

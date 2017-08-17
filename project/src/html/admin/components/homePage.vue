@@ -172,16 +172,7 @@
         border-radius: 3px;
         background: #5b6270;
     }
-    .avator {
-        vertical-align: middle;
-        width: 28px;
-        height: 28px;
-        border: 1px solid black;
-        border-radius: 50%;
-    }
-    .user-name {
-        margin-right: 20px;
-    }
+
 
 	@media only screen and (max-width: 768px){
 		

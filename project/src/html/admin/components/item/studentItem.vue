@@ -1,5 +1,5 @@
 <template>
-	<div class="student-item" @click="toGetStudentTestsById">
+	<div class="student-item" @click="handel">
 		<img :src=" '/anywork/picture/' + userId + '.jpg?' + refresh ">
 		<div>
 			<p><strong>姓名：</strong>{{userName}}</p>
@@ -12,6 +12,8 @@
 <script>
 	import { mapState, mapActions} from 'vuex';
 	import organization from  '../../store/types/organization'
+	import student from  '../../store/types/student'
+
 	export default {
 		data() {
 			return {
@@ -20,6 +22,7 @@
 		},
 		props: ['userName', 'userId', 'email', 'phone', 'organizationId'],
 		methods: {
+			...mapActions(student.actions),
 			...mapActions(organization.actions),
 
 			toGetStudentTestsById() {
@@ -29,6 +32,22 @@
 				}).then((data) => {
 					if(data.state){
 						this.$Message.success(data.info)
+					}else{
+						this.$Message.error(data.info)
+					}
+				}).catch((err) => {
+					this.$Message.error(err)
+				})
+			},
+
+			handel() {
+				console.log(this.setStudentInfo)
+				this.setStudentInfo({
+					studentName: this.userName,
+					studentId: this.userId
+				}).then((data) => {
+					if(data.state){
+						this.toGetStudentTestsById()
 					}else{
 						this.$Message.error(data.info)
 					}

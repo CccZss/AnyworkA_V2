@@ -28,7 +28,8 @@ const routes = [
         createTest: '出试卷',
         createPractice: '出练习',
         sendNotice: '发通知',
-        noticeHistory: '通知记录'
+        noticeHistory: '通知记录',
+        score: '评分'
       },
       path: {
         homePage: '/homePage',
@@ -40,7 +41,8 @@ const routes = [
         createTest: '/homePage/createTest',
         createPractice: '/homePage/createPractice',
         sendNotice: '/homePage/sendNotice',
-        noticeHistory: '/homePage/noticeHistory'
+        noticeHistory: '/homePage/noticeHistory',
+        score: 'tests/completeStatus/score'
       }
     },
     component: require('../components/homePage.vue'),  
@@ -64,6 +66,11 @@ const routes = [
         path: 'tests/completeStatus',
         name: 'completeStatus',
         component: require('../components/homePage/paper/completeStatus.vue')
+      },
+      {
+        path: 'tests/completeStatus/score',
+        name: 'score',
+        component: require('../components/homePage/paper/score.vue')
       },
       {
         path: 'practices',

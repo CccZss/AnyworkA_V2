@@ -1,12 +1,18 @@
 <template>
 	<section>
 		<h1>试卷：{{paper.testpaperTitle}}</h1>
-		<div class="student-item" v-for="item in studentList" :key="item.studentId">
-			<span>{{item.studentName}}</span>
-			<span>是否做过：{{item.ifAttend}}</span>
-			<span>是否评分：{{item.ifCheck}}</span>
-			<Button type="primary">评分</Button>
-		</div>
+		<h2>学生列表 :</h2>
+		<complete-status-item 
+			v-for="item in studentList" 
+			:key="item.studentId" 
+			:studentName="item.studentName" 
+			:studentId="item.studentId" 
+			:ifAttend="item.ifAttend" 
+			:ifCheck="item.ifCheck"
+			:object="item.object"
+			:subject="item.subject" 
+			:testpaper="item.testpaper"
+		/>
 	</section>
 </template>
 
@@ -17,6 +23,7 @@
 
 
 	import loading from '../../item/loading'
+	import completeStatusItem from '../../item/completeStatusItem'
 	export default {
 		data () {
 			return {		
@@ -25,6 +32,7 @@
 		},
 		components: {
 			loading,
+			'complete-status-item': completeStatusItem
 		},
 		computed: {
 			...mapState({
@@ -70,14 +78,13 @@
 	    margin-bottom: 10px;
 	    border-bottom: 1px solid #b4b4b4;
 	}
+	h2 {
+		padding: 10px 20px 5px;
+	    margin-bottom: 10px;
+	}
 	.no-info {
 		margin-top: 30px;
 		text-align: center;
 		font-size: 20px;
-	}
-	.student-item {
-		border: 1px solid;
-		padding: 10px;
-		margin: 10px;
 	}
 </style>
