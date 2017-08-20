@@ -16,6 +16,7 @@
 					<img :src="userPhoto">
 					<ul class="person-info" v-show="personNav">
 						<li @click="toPersonPage">个人主页</li>
+						<li @click="toFeedback">意见反馈</li>
 						<li @click="toExit">退出登录</li>
 					</ul>
 				</li>
@@ -84,6 +85,11 @@
 			toPersonPage(){
 				this.$router.push({
 					name: 'myOrganization'
+				})
+			},
+			toFeedback() {
+				this.$router.push({
+					name: 'feedback'
 				})
 			},
 			toExit () {

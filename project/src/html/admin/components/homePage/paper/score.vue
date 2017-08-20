@@ -7,7 +7,7 @@
 				<span class="score">总分：{{paper.testpaperScore}}</span>
 				<span class="time">时间：{{createTimeFormat}} -- {{endingTimeFormat}}</span>
 			</div> 
-			<look-answer />
+			<check-answer />
 		</section>
 	</section>
 </template>
@@ -16,7 +16,7 @@
 	import { mapState, mapActions} from 'vuex';
 	import paper from  '../../../store/types/paper'
 
-	import lookAnswer from './lookAnswer'
+	import checkAnswer from './checkAnswer'
 
 	export default {
 		data: function(){
@@ -24,7 +24,7 @@
 			}
 		},
 		components: {
-			'look-answer' : lookAnswer
+			'check-answer' : checkAnswer
 		},
 		computed: {
 			...mapState({

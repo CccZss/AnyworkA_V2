@@ -33,6 +33,7 @@
 		        <Button class="bt" type="primary" @click="modelCancel">取消</Button>
 		    </div>
 		</transition>
+    	<div :class="{'modal-cover': showModel}"></div>
 	</section>
 </template>
 
@@ -238,7 +239,7 @@
 	    position: fixed;
 	    top: 100px;
 	    left: 50%;
-	    z-index: 5;
+	    z-index: 6;
 	    width: 400px;
 	    margin-left: -200px;
 	    padding: 10px 14px;
@@ -246,6 +247,17 @@
 	    box-shadow: 0 0 6px 1px #89a29e;
 	    background-color: white;
 	    overflow: hidden;
+	}
+	.modal-cover:before {
+	    content: '';
+	    display: block;
+	    position: fixed;
+	    z-index: 5;
+	    background: rgba(0, 0, 0, 0.50);
+	    width: 100%;
+	    height: 100%;
+	    top: 0;
+	    left: 0;
 	}
 	.modal .bt {
 		float: right;

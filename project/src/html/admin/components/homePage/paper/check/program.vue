@@ -1,5 +1,8 @@
 <template>
 	<div :key="questionItem.question.questionId" >
+		<div class="mark">
+			<span>评分：</span><Input class="mark-input" type="text" v-model="score"></Input>
+		</div>
 		<center class="num">
 			题号 : {{this.index + 1}}
 			<span class="socre">{{questionItem.question.socre}}分</span>
@@ -24,10 +27,11 @@
 	export default {
 		data () {
 			return {
-				questionAnswer: ''
+				questionAnswer: '',
+				score: 0
 			}
 		},
-		props: ['questionItem', 'index'],
+		props: ['questionItem', 'index', 'mark'],
 		methods : {
 			selectAnswer (e) {
 				this.questionAnswer = e.target.innerText
@@ -36,11 +40,51 @@
 					studentAnswer: this.questionAnswer
 				})
 			}	
+		},
+		watch: {
+			score: function(val) {
+				if(!isNaN(val)){
+					this.$emit('set-score', {
+						questionId: this.questionItem.question.questionId,
+						score: Number(val),
+					})
+				}else{
+					this.$emit('set-score', {
+						questionId: this.questionItem.question.questionId,
+						score: 0,
+					})
+				}
+			},
+		},
+		mounted() {
+			if(this.mark !== undefined){
+				this.score = this.mark
+			}else{
+				this.score = this.questionItem.socre
+			}
 		}
 	}
 </script>
 
-<style scoped>
+<style scoped>	
+	.mark {
+		text-align: right;
+		margin: 22px 0;
+	}
+	.mark:after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+	.mark span {
+		font-size: 18px;
+		font-weight: bold;
+		color: green;
+	}
+	.mark-input {
+		display: inline-block;
+		width: 85px;
+	}
 	section {
 	    border: 1px solid #dedede;
 	    padding: 0.1px;

@@ -202,6 +202,30 @@ const actions = {
         })
     },
 
+    [types.actions.submitJudge]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            myAxios({
+                method: 'POST',
+                url: '/teacher/judge',
+                data: data
+            }).then(function(res){
+                 if(res.data.state.toString()==="1"){
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo}
+                    )
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+            }).catch(function(err){
+                reject(err)
+            })
+        })
+    },
+
 }
 
 const mutations = {

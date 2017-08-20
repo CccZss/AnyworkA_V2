@@ -93,10 +93,6 @@
 	    cursor: pointer;
 	    border: 1px solid #19be6b;
 	}
-	input[type=radio] {
-	    display: none;
-	}
-
 	@media only screen and (max-width: 992px) {
 		.content {
 		    font-size: 3rem;

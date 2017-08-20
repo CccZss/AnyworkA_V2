@@ -48,7 +48,12 @@
 					})
 				}
 			}
-		},
+		},		
+		watch: {
+			questionList: function() {
+				this.select = 0
+			}
+		}
 	}
 </script>
 
@@ -74,10 +79,11 @@
 		text-align: center;
 		cursor: pointer;
 		border-radius: 50%;
+		transition: 0.3s all linear;
 	}
-	li:hover {
+ 	/*li:hover {
 		border-radius: 0;
-	}
+	} */
 	.right {
 		background-color: #19be6b;
 	}
@@ -88,7 +94,7 @@
 		background-color: #7b7b7b;
 	}
 	.select {
-		border-radius: 0;
+		border-radius: 20%;
 	}
 
 	@media only screen and (max-width: 992px) {

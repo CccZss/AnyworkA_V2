@@ -5,11 +5,18 @@
 			@tab-select="tabSelect"
 		/>
 		<span class="socre">
-			得分：<span>{{this.questionAnswerInfo.socre}}</span>
+			得分：<span>{{score}}</span>
 		</span>
-		<Button class="submit-bt" type="success" v-if="this.paper.testpaperType===0" @click="submitScore">确定批改</Button>
+		<Button class="submit-bt" type="success" @click="submitScore">确定批改</Button>
 		<question-nav :questionList="questionList" @current-question="showCurrentQuestion"/>
-		<component v-show="hasQuestion" class="question-wrap" :is="questionType" :questionItem="currentQuestion" :index="currentQuestionIndex" :key="currentQuestionIndex"/>
+		<component v-show="hasQuestion" 
+			class="question-wrap" 
+			:is="questionType" 
+			:questionItem="currentQuestion" 
+			:index="currentQuestionIndex" 
+			:key="currentQuestionIndex"
+			:mark="currentMark"
+			@set-score="setScore"/>
 	</section>
 </template>
 
@@ -30,6 +37,9 @@
 	export default {
 		data: function(){
 			return {
+				score: 0,
+				questionScoreObj: {},
+				currentMark: undefined,
 				tabs: {
 					choose: '选择题',
 					pad: "填空题",
@@ -121,6 +131,10 @@
 				}
 			},
 
+			/**
+			 * [showCurrentQuestion description]
+			 * @param  {[type]} data [data.questionId, data.index]
+			 */
 			showCurrentQuestion (data) {
 				this.currentQuestionIndex = data.index
 				if(data.questionId === undefined ){
@@ -133,38 +147,71 @@
 					}
 				})[0]
 				this.currentQuestion = question
+				this.currentMark = this.questionScoreObj[question.question.questionId]
+				console.log(this.questionScoreObj)
+				console.log(question.question.questionId)
+			},
+
+			setScore (data) {
+				this.questionScoreObj[data.questionId] = data.score
+				var obj = this.questionScoreObj
+				var score = 0
+				for(var id in obj){
+					score += obj[id]
+				}
+				this.score = score
 			},
 
 			submitScore () {
-				alert('socre')
-			}
+				var obj = this.questionScoreObj
+				var arr = []
+				var data = {}
+				for(var id in obj){
+					arr.push({
+						questionId: Number(id),
+						socre: obj[id]
+					})
+				}
+				data['teacherJudge'] = arr
+				data['studentId'] = this.student.studentId
+				data['testpaperId'] = this.paper.testpaperId
 
-		},
-		created () {
-			if(this.paper.hasDown && (this.$route.params.handel === undefined || this.$route.params.handel !== 'submit')){
-				this.getPaperAnswerById({
-					testpaperId: this.paper.testpaperId,
-					userId: this.student.studentId
-				}).then((data) => {
+				this.submitJudge(data).then((data) => {
+					this.questionScoreObj = {}
 					if(data.state){
-						this.questionList = this.chooseList
-						this.showCurrentQuestion({
-							index: 0,
-							questionId: this.questionList[0].question.questionId,
-						})
+						this.$Message.success(data.info)
 					}else{
 						this.$Message.error(data.info)
 					}
 				}).catch((err) => {
 					this.$Message.error(err)
 				})
-			}else{
-				this.questionList = this.chooseList
-				this.showCurrentQuestion({
-					index: 0,
-					questionId: this.questionList[0].question.questionId,
-				})
 			}
+
+		},
+		created () {
+
+			this.getPaperAnswerById({
+				testpaperId: this.paper.testpaperId,
+				userId: this.student.studentId
+			}).then((data) => {
+				this.questionScoreObj = {}
+				if(data.state){
+					this.score = this.questionAnswerInfo.socre
+					this.answerAnalysisList.forEach((item) => {
+						this.questionScoreObj[item.question.questionId] = item.socre
+					})
+					this.questionList = this.chooseList
+					this.showCurrentQuestion({
+						index: 0,
+						questionId: this.questionList[0].question.questionId,
+					})
+				}else{
+					this.$Message.error(data.info)
+				}
+			}).catch((err) => {
+				this.$Message.error(err)
+			})
 		}
 	}
 </script>

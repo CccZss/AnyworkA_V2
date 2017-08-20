@@ -9,7 +9,6 @@
 		</div>
 		<span class="delete" @click.stop.prevent="deletePaper"><Icon type="ios-close-outline"></Icon></span>
 		<span class="download" @click.stop.prevent="downloadPaper"><Icon type="ios-download-outline"></Icon></span>
-			
 	</section>
 </template>
 

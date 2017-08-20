@@ -1,7 +1,10 @@
 <template>
-	<div :key="questionItem.question.questionId" >
+	<div :key="questionItem.question.questionId" class="wrap">
 		<p class="true-answer">正确答案: {{this.trueAnswer}}</p>
 		<p class="your-answer">学生的答案: {{this.yourAnswer}} <span :class="[this.questionItem.isTrue?'true':'false']">{{this.questionItem.isTrue ? '(正确)' : '(错误)'}}</span></p>
+		<div class="mark">
+			<span>评分：</span><Input class="mark-input" type="text" v-model="score"></Input>
+		</div>
 		<center class="num">
 			题号 : {{this.index + 1}}
 			<span class="socre">{{questionItem.question.socre}}分</span>
@@ -26,9 +29,10 @@
 			return {
 				trueIcon: '-outline',
 				falseIcon: '-outline',
+				score: 0
 			}
 		},
-		props: ['questionItem', 'index'],
+		props: ['questionItem', 'index', 'mark'],
 		computed: {
 			yourAnswer () {
 				if(this.questionItem.studentAnswer.toString() === '0' || this.questionItem.studentAnswer.toString() === '1'){
@@ -41,8 +45,22 @@
 				return Boolean(Number(this.questionItem.question.key))
 			}
 		},
+		watch: {
+			score: function(val) {
+				if(!isNaN(val)){
+					this.$emit('set-score', {
+						questionId: this.questionItem.question.questionId,
+						score: Number(val),
+					})
+				}else{
+					this.$emit('set-score', {
+						questionId: this.questionItem.question.questionId,
+						score: 0,
+					})
+				}
+			},
+		},
 		created () {
-
 			if(Number(this.questionItem.question.key)){
 				this.trueIcon = ''
 			}else{
@@ -54,11 +72,37 @@
 			}else if(this.yourAnswer === '未回答'){
 				this.trueIcon = this.falseIcon = '-outline'
 			}
+		},
+		mounted() {
+			if(this.mark !== undefined){
+				this.score = this.mark
+			}else{
+				this.score = this.questionItem.socre
+			}
 		}
+
 	}
 </script>
 
 <style scoped>
+	.wrap {
+		position: relative;
+	}
+	.mark {
+		display: inline-block;
+		position: absolute;
+		right: 10PX;
+		top: 0;
+	}
+	.mark span {
+		font-size: 18px;
+		font-weight: bold;
+		color: green;
+	}
+	.mark-input {
+		display: inline-block;
+		width: 85px;
+	}
 	section {
 	    border: 1px solid #dedede;
 	    padding: 0.1px;

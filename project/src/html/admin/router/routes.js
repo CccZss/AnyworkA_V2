@@ -29,7 +29,8 @@ const routes = [
         createPractice: '出练习',
         sendNotice: '发通知',
         noticeHistory: '通知记录',
-        score: '评分'
+        score: '评分',
+        studentDownPaper: '学生做过试卷'
       },
       path: {
         homePage: '/homePage',
@@ -42,7 +43,8 @@ const routes = [
         createPractice: '/homePage/createPractice',
         sendNotice: '/homePage/sendNotice',
         noticeHistory: '/homePage/noticeHistory',
-        score: 'tests/completeStatus/score'
+        score: '/homePage/tests/completeStatus/score',
+        studentDownPaper: '/homePage/students/studentDownPaper'
       }
     },
     component: require('../components/homePage.vue'),  
@@ -56,6 +58,11 @@ const routes = [
         path: 'students',
         name: 'students',
         component: require('../components/homePage/students.vue')
+      },
+      {
+        path: 'students/studentDownPaper',
+        name: 'studentDownPaper',
+        component: require('../components/homePage/student/studentDownPaper.vue'),
       },
       {
         path: 'tests',

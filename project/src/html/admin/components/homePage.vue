@@ -128,8 +128,8 @@
     }
     .layout-content{
         min-height: 200px;
+        padding: .1px;
         padding-bottom: 20px;
-        overflow: hidden;
         background: #fff;
         border-radius: 4px;
     }
@@ -137,6 +137,7 @@
         position: fixed;
         top: 0px;
         left: 0;
+        z-index: 6;
         width: 250px;
         overflow-y: auto;
         background: #464c5b;
@@ -144,12 +145,7 @@
     .layout-right {
         width: calc(100% - 260px );
         margin-left: 255px;
-    }
-    .layout-header{
-        padding: 10px 0;
-        background: #fff;
-        box-shadow: 0 1px 1px rgba(0,0,0,.1);
-        overflow: hidden;
+        margin-top: 40px;
     }
     .view {
         padding: 10px 10px 10px 10px;

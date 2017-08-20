@@ -23,7 +23,7 @@
 		</div>
 		<div class="reight-section">
 			<div class="main">
-				<Menu mode="horizontal" active-name="1" @on-select="selectRouter" :active-name="activeName">
+				<Menu mode="horizontal" @on-select="selectRouter" :active-name="activeName">
 		            <div class="layout-assistant">
 		                <Menu-item name="myOrganization" >我的组织</Menu-item>
 		                <Menu-item name="myTest" >我的考试</Menu-item>

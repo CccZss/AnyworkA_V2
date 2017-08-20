@@ -21,6 +21,14 @@ const routes = [
     component: require('../components/organizationPage.vue')
   },
   {
+    name: 'feedback',
+    path: '/feedback',
+    meta: {
+      title: 'FeedBack'
+    },
+    component: require('../components/feedback.vue')
+  },
+  {
     name: 'personPage',
     path: '/personPage',
     meta: {

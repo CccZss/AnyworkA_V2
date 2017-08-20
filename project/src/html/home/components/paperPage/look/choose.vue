@@ -70,13 +70,23 @@
 				}
 			}
 		},
-		created () {
-			if(this.questionItem.isTrue){
-				this.key = this.questionItem.question.key
-			}else{
-				this.key = this.questionItem.question.key
-				this.studentAnswer = this.questionItem.studentAnswer
+		methods: {
+			init() {
+				if(this.questionItem.isTrue){
+					this.key = this.questionItem.question.key
+				}else{
+					this.key = this.questionItem.question.key
+					this.studentAnswer = this.questionItem.studentAnswer
+				}
 			}
+		},
+		watch: {
+			questionItem: function() {
+				this.init()
+			}
+		},
+		mounted () {
+			this.init()
 		}
 	}
 </script>

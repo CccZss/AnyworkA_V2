@@ -75,7 +75,7 @@ export default {
         min-height: 200px;
         margin-top: 8px;
         padding-bottom: 20px;
-        overflow: hidden;
+        /*overflow: hidden;*/
         border-radius: 4px;
     }
     .layout-content-main{
@@ -88,9 +88,13 @@ export default {
         background: #464c5b;
     }
     .layout-header{
+        position: fixed;
+        top: 0;
+        z-index: 5;
+        width: 100%;
         padding: 10px 0;
-        background: #fff;
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
+        background: #fff;
         overflow: hidden;
     }
     .layout-ceiling-main{

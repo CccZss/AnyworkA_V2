@@ -5,8 +5,8 @@
 		<span class="check-status" :class="{'hasDown': ifCheck}">{{checkStatus}}</span>
 		<span class="attend-status" :class="{'hasDown': ifAttend}">{{attendStatus}}</span>
 		<span class="score-wrap">
-			<span class="score">主观题: <strong>{{subject}}</strong></span>
 			<span class="score">客观题: <strong>{{object}}</strong></span>
+			<span class="score">主观题: <strong>{{subject}}</strong></span>
 			<span class="score">总分: <strong>{{subject + object}}</strong></span>
 		</span>
 	</section>
@@ -36,6 +36,10 @@
 			...mapActions(student.actions),
 
 			score() {
+				if(!this.ifAttend){
+					alert('该学生未做体，尚不能评分！')
+					return
+				}
 				this.setPaperInfo(this.testpaper).then((data) => {
                     if(data.state){
 						this.$router.push({

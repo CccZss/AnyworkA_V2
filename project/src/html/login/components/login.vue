@@ -8,7 +8,7 @@
 				<Input class="input" type="password" v-model="password" placeholder="密码" icon="ios-locked-outline"></Input>
 			</Mytip>
 			<Row :gutter="10">
-		        <Col span="12"><img src="" class="barcode"></Col>
+		        <Col span="12"><img :src="barcodeURL + '?' + refresh" class="barcode" @click="refreshBarcode"></Col>
 		        <Col span="12">
 		        	<Mytip content="验证码" :info="barcodeInfo">
 		        		<Input class="input" type="text" v-model="barcode" ></Input>
@@ -27,17 +27,21 @@
 </template>
 
 <script>
-	import Mytip from './Mytip.vue'
 	import { mapState, mapActions } from 'vuex'  
 	import user from '../store/types/user'
+	import { IP } from 'src/utils/interaction'
+
+	import Mytip from './Mytip.vue'
 	export default {
 		data () {
 			return {
-				email: '111@qq.com',
-				password: '123456',
+				email: '123456@qq.com',
+				password: '456789',
 				loadStatu: false,
 				barcode: '0',
 				admin: true,
+				barcodeURL: IP + 'utils/valcode',
+				refresh: new Date().valueOf(),
 
 				emailInfo: '',
 				passwordInfo: '',
@@ -118,6 +122,9 @@
 				}else{
 					return true
 				}
+			},
+			refreshBarcode() {
+				this.refresh = new Date().valueOf()
 			}
 
 		},
@@ -163,6 +170,8 @@
 	.barcode {
 		width: 100%;
 		height: 32px;
+		cursor: pointer;
+		border: 0.1px solid #797979;
 	}
 
 	@media only screen and (max-width: 768px){

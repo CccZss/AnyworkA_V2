@@ -1,7 +1,10 @@
 <template>
-	<div :key="questionItem.question.questionId" >
+	<div :key="questionItem.question.questionId" class="wrap">
 		<p class="true-answer">正确答案: {{this.questionItem.question.key}}</p>
 		<p class="your-answer">学生的答案: {{this.yourAnswe}} <span :class="[this.questionItem.isTrue?'true':'false']">{{this.questionItem.isTrue ? '(正确)' : '(错误)'}}</span></p>
+		<div class="mark">
+			<span>评分：</span><Input class="mark-input" type="text" v-model="score"></Input>
+		</div>
 		<center class="num">
 			题号 : {{this.index + 1}}
 			<span class="socre">{{questionItem.question.socre}}分</span>
@@ -35,7 +38,8 @@
 		data () {
 			return {
 				key : '',
-				studentAnswer: ''
+				studentAnswer: '',
+				score : 0
 			}
 		},
 		props: {
@@ -59,6 +63,10 @@
 			index: {
 				required: true,
 				default: 0
+			},
+			mark: {
+				require: true,
+				default: undefined
 			}
 		},
 		computed: {
@@ -68,21 +76,52 @@
 				}else{
 					return '未回答'
 				}
+			},
+		},
+		methods: {
+			init() {
+				if(this.mark !== undefined){
+					this.score = this.mark
+				}else{
+					this.score = this.questionItem.socre
+				}
+
+				if(this.questionItem.isTrue){
+					this.key = this.questionItem.question.key
+				}else{
+					this.key = this.questionItem.question.key
+					this.studentAnswer = this.questionItem.studentAnswer
+				}
 			}
 		},
-		created () {
-			if(this.questionItem.isTrue){
-				this.key = this.questionItem.question.key
-			}else{
-				this.key = this.questionItem.question.key
-				this.studentAnswer = this.questionItem.studentAnswer
+		watch: {
+			score: function(val) {
+				if(!isNaN(val)){
+					this.$emit('set-score', {
+						questionId: this.questionItem.question.questionId,
+						score: Number(val),
+					})
+				}else{
+					this.$emit('set-score', {
+						questionId: this.questionItem.question.questionId,
+						score: 0,
+					})
+				}
+			},
+			questionItem: function(questionItem) {
+				this.init()
 			}
+		},
+		mounted () {
+			this.init()
 		}
 	}
 </script>
 
 <style scoped>
-
+	.wrap {
+		position: relative;
+	}
 	section {
 	    border: 1px solid #dedede;
 	}
@@ -130,6 +169,21 @@
 	.your-answer span{
 		display: inline-block;
 		margin: 0 0 10px 10px;
+	}
+	.mark {
+		display: inline-block;
+		position: absolute;
+		right: 10PX;
+		top: 0;
+	}
+	.mark span {
+		font-size: 18px;
+		font-weight: bold;
+		color: green;
+	}
+	.mark-input {
+		display: inline-block;
+		width: 85px;
 	}
 	.true {
 		color: #19be6b;

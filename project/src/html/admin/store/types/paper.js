@@ -10,7 +10,9 @@ export default namespace('paper', {
         'getChapterList',
         'getPaperAnswerById',
 
-        'getStudentsByTest'
+        'getStudentsByTest',
+
+        'submitJudge',
     ],
     mutations: [
         'setInfo',

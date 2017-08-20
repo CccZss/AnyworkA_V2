@@ -5,6 +5,7 @@ export default namespace('user', {
     	'getMyInfo',
     	'updatePassword',
         'updateInfo',
+        'submitSuggestion',
         'refresh',
         'exit'
     ],
