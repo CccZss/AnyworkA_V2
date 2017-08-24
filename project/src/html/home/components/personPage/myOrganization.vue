@@ -17,6 +17,7 @@
 				v-on:exit="emit"
 			 />
 		</ul>
+		<p v-if="myOrganizationList.length<=0" class="no-info"> 没有数据... </p>
 	</section>
 </template>
 
@@ -79,5 +80,10 @@
 	.organ-item {
 		display: inline-block;
 		margin: 14px;
+	}	
+	.no-info {
+		margin-top: 30px;
+		text-align: center;
+		font-size: 20px;
 	}
 </style>

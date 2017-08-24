@@ -25,7 +25,7 @@ const routes = [
         tests: '组织中的试卷',
         completeStatus: '试卷完成情况',
         practices: '组织中的练习',
-        createTest: '出试卷',
+        createTest: '出考卷',
         createPractice: '出练习',
         sendNotice: '发通知',
         noticeHistory: '通知记录',
@@ -85,14 +85,14 @@ const routes = [
         component: require('../components/homePage/practices.vue')
       },
       {
-        path: 'createTest',
-        name: 'createTest',
-        component: require('../components/homePage/createTest.vue')
-      },
-      {
         path: 'createPractice',
         name: 'createPractice',
-        component: require('../components/homePage/createPractice.vue')
+        component: require('../components/homePage/createPractice.vue'),
+      },
+      {
+        path: 'createTest',
+        name: 'createTest',
+        component: require('../components/homePage/createTest.vue'),
       },
       {
         path: 'sendNotice',

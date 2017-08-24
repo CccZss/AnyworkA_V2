@@ -148,6 +148,36 @@ const actions = {
         })
     },
 
+    [types.actions.addChapter]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            myAxios({
+                method: 'POST',
+                url: '/test/addChapter',
+                data: data
+            }).then(function(res){
+                if(res.data.state.toString()==="1"){
+                    var arr = context.state.testChapterList
+                    arr.push(res.data.data)
+                    context.commit(types.mutations.setInfo,{
+                        testChapterList: arr
+                    })
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo,
+                        chapterId: res.data.data.chapterId
+                    })
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+            }).catch(function(err){
+                reject(err)
+            })
+        })
+    },
+
     [types.actions.getPaperAnswerById]: (context, data) => {
         return new Promise((resolve, reject) => {
             myAxios({
@@ -226,6 +256,111 @@ const actions = {
         })
     },
 
+    [types.actions.parseFile]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            myAxios({
+                method: 'POST',
+                url: 'quest/upload',
+                data: data
+            }).then(function(res){
+                 if(res.data.state.toString()==="1"){
+                    context.commit(types.mutations.setInfo,{
+                        paperQuestionList: res.data.data || [],
+                    })
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo}
+                    )
+                }else{
+                    context.commit(types.mutations.setInfo,{
+                        paperQuestionList: [],
+                    })
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+            }).catch(function(err){
+                reject(err)
+            })
+        })
+    },
+
+    [types.actions.createPaper]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            myAxios({
+                method: 'POST',
+                url: 'quest/'+ data.organizationId +'/submit',
+                data: data
+            }).then(function(res){
+                 if(res.data.state.toString()==="1"){
+                    context.commit(types.mutations.setInfo,{
+                        paperQuestionList: data.questionsList || [],
+                    })
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo}
+                    )
+                }else{
+                    context.commit(types.mutations.setInfo,{
+                        paperQuestionList: [],
+                    })
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+            }).catch(function(err){
+                reject(err)
+            })
+        })
+    },
+
+    [types.actions.deletePaper]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            myAxios({
+                method: 'GET',
+                url: 'quest/'+ data.testpaperId +'/delete',
+            }).then(function(res){
+                 if(res.data.state.toString()==="1"){
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo}
+                    )
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+            }).catch(function(err){
+                reject(err)
+            })
+        })
+    },
+
+    [types.actions.downloadPaper]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            myAxios({
+                method: 'GET',
+                url: 'quest/'+ data.organizationId +'/export/' + data.testpaperId,
+            }).then(function(res){
+                 if(res.data.state.toString()==="1"){
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo}
+                    )
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+            }).catch(function(err){
+                reject(err)
+            })
+        })
+    },
 }
 
 const mutations = {

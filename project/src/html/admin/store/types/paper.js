@@ -8,11 +8,17 @@ export default namespace('paper', {
         'submitPaper',
 
         'getChapterList',
+        'addChapter',
         'getPaperAnswerById',
 
         'getStudentsByTest',
 
         'submitJudge',
+
+        'parseFile',
+        'createPaper',
+        'deletePaper',
+        'downloadPaper'
     ],
     mutations: [
         'setInfo',

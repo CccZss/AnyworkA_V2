@@ -1,30 +1,15 @@
 <template>
-	<div class="choose-item" :key="index" >
+	<div class="integrated-item" :key="index" >
 		<center class="num">
 			题号 : {{this.index + 1}}
 			<span>分数: <Input-number class="socre-input" :min="0" size="small" v-model="score" ></Input-number></span>
 		</center> 
 		<section>
 			<div class="content-wrap">{{this.content}}
-				<textarea class="content" placeholder="请填写题目" @input="inputQuestion($event)" :value="content"></textarea>
+				<textarea class="content" placeholder="请填写题目" @input="inputQuestion($event)" v-model="content"></textarea>
 			</div>
-			<p class="answer"> A : <Input class="answer-input" type="text" v-model="answerA"></Input> </p>
-			<p class="answer"> B : <Input class="answer-input" type="text" v-model="answerB"></Input> </p>
-			<p class="answer"> C : <Input class="answer-input" type="text" v-model="answerC"></Input> </p>
-			<p class="answer"> D : <Input class="answer-input" type="text" v-model="answerD"></Input> </p>
-			<div class="select-wrap">
-				<span class="answer_option">
-					<label :class="{on: selectItem === 'A'}" @click.stop="selectAnswer">A</label>
-				</span>
-	    		<span class="answer_option">
-					<label :class="{on: selectItem === 'B'}" @click.stop="selectAnswer">B</label>
-				</span>
-	    		<span class="answer_option">
-					<label :class="{on: selectItem === 'C'}" @click.stop="selectAnswer">C</label>
-				</span>
-	    		<span class="answer_option">
-					<label :class="{on: selectItem === 'D'}" @click.stop="selectAnswer">D</label>
-				</span>
+			<div class="answer-wrap">{{this.answer}}
+				<textarea class="answer" placeholder="答案" @input="inputAnswer($event)" v-model="answer"></textarea>
 			</div>
 		</section>
 	</div>
@@ -35,27 +20,19 @@
 	    	return {
 	    		score: 5,
 	    		content: '',
-	    		answerA: '',
-	    		answerB: '',
-	    		answerC: '',
-	    		answerD: '',
-	    		selectItem: 'A'
+	    		answer: ''
 	    	}
 	    },
 		props:['index', 'question'],
 	    computed: {
 	    	info: function(){
 	    		return {
-	    			type: 1,
+	    			type: 6,
 	    			other: 0,
 	    			socre: this.score,
-	    			questionId: 'choose-' + this.index,
+	    			questionId: 'integrated-' + this.index,
 		    		content: this.content,
-		    		a: this.answerA,
-		    		b: this.answerB,
-		    		c: this.answerC,
-		    		d: this.answerD,
-		    		key: this.selectItem,
+		    		key: this.answer,
 	    		}
 	    	}
 	    },
@@ -66,33 +43,33 @@
 	    },
 	    methods:{
 	        selectAnswer (e) {
-				this.selectItem = e.target.innerHTML
+				this.answer = e.target.innerHTML
 			},
 			inputQuestion (event) {
 				var target = event.target ? event.target : event.srcElement;
 				this.content = target.value
+			},
+			inputAnswer (event) {
+				var target = event.target ? event.target : event.srcElement;
+				this.answer = target.value
 			}	
 	    },
 	    mounted() {
     		var question = this.question
 	    	if(typeof question === 'object'){
 	    		this.score = question.socre || 0;
-	    		this.answerA = question.a || '';
-	    		this.answerB = question.b || '';
-	    		this.answerC = question.c || '';
-	    		this.answerD = question.d || '';
 	    		this.content = question.content || '';
-	    		this.selectItem = question.key || 'A'
+	    		this.answer = question.key || ''
 	    	}
 	    },
 	    beforeDestroy() {
-	    	this.$emit('delete-question-item','choose-'+ this.index)
+	    	this.$emit('delete-question-item','integrated-'+ this.index)
 	    }
 	}
 </script>
 
 <style scoped>
-	.choose-item {
+	.integrated-item {
 		margin-top: 10px;
 	}
 	section {
@@ -141,38 +118,33 @@
 		border: 1px solid #dedede;
 		outline: none;
 	}
-/* 	.content-wrap {
-        width: 100%;
-    border-bottom: 1px solid #dedede;
-}
-.content-wrap textarea {
-    border: 0 rgba(255, 255, 255, 0);
-    padding: 10px 10px 0;
-	width: 100%;
-    font-size: 16px;
-} */
+
+	.answer-wrap, .answer{
+      	padding: 6px;
+		font-size: 16px;
+	}
+	.answer-wrap {
+		position: relative;
+      	
+      	margin-top: 10px;
+		padding: 0 8px;
+		min-height: 100px;
+		
+       	white-space: pre-wrap;  /* 使该 div 的填充字体时表现出来的换行效果与 textarea 一致 */ 
+	    word-wrap: break-word;  /* 使该 div 的填充字体时表现出来的换行效果与 textarea 一致 */ 
+	    word-break: break-all;  /* 使该 div 的填充字体时表现出来的换行效果与 textarea 一致 */ 
+	}
+  
 	.answer {
-		margin-top: 10px;
-	    padding: 0 10px;
-	    font-size: 16px;
-	}
-	.answer-input {
-		width: 300px;
-	}
-	.select-wrap {
-		margin-left: 5px;
-	}
-	.on {
-	    background-color: #19be6b;
-	    color: #fff;
-	}
-	label {
-		display: inline-block;
-	    padding: 0 2rem;
-	    margin: 1rem .5rem;
-       	font-size: 1.2rem;
-	    color: #19be6b;
-	    cursor: pointer;
-	    border: 1px solid #19be6b;
+		position: absolute;
+		top: 0px;
+		right: 0;
+      
+		width: 100%;
+		height: 100%;  /* 使 textarea 的高度跟其父元素的高度保持一致 */
+      
+		color: #495060;
+		border: 1px solid #dedede;
+		outline: none;
 	}
 </style>

@@ -49,15 +49,4 @@
 		background-color: rgb(7, 118, 99);
 	}
 
-	@media only screen and (max-width: 992px) {
-
-		ul {
-			display: block;
-   			margin: 1rem 0;
-		}
-		li {
-			font-size: 2.5rem;
-		    width: 16.66%;
-		}
-	}
 </style>

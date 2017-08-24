@@ -36,7 +36,7 @@
 		data () {
 			return {
 				email: '123456@qq.com',
-				password: '456789',
+				password: '123456',
 				loadStatu: false,
 				barcode: '0',
 				admin: true,

@@ -5,6 +5,7 @@ import store from './store/'
 import router from './router/router.js'
 import iView from 'iview'
 import 'assets/my-theme/admin.less'
+import 'src/utils/test.js'
 
 Vue.use(iView)
 
@@ -19,3 +20,4 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+

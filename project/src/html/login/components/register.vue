@@ -20,15 +20,14 @@
 			<Mytip content="确认密码" :info="rePasswordInfo">
 				<Input class="input" type="password" v-model="rePassword" placeholder="确认密码" icon="ios-unlocked-outline"></Input>
             </Mytip>
-
-          <!--<Row :gutter="10">
-          		        <Col span="12"><img src="" class="barcode"></Col>
-          		        <Col span="12">
-          		        	<Mytip content="验证码" :info="barcodeInfo">
-          		        		<Input class="input" type="text" v-model="barcode"></Input>
-          		        	</Mytip>
-          		        </Col>
-          	</Row> -->
+          	<Row :gutter="10">
+  		        <Col span="12"><img :src="barcodeURL + '?' + refresh" class="barcode" @click="refreshBarcode"></Col>
+  		        <Col span="12">
+  		        	<Mytip content="验证码" :info="barcodeInfo">
+  		        		<Input class="input" type="text" v-model="barcode"></Input>
+  		        	</Mytip>
+  		        </Col>
+          	</Row> 
 
 			<Button class="login-bt" type="primary" long @click="toRegister" :loading="loadStatu">注册</Button>
 			<a href="#" class="a-login" @click="toLogin">前往登录</a>
@@ -41,9 +40,12 @@
 </template>
 
 <script>
-	import Mytip from './Mytip.vue'
 	import { mapState, mapActions } from 'vuex'  
 	import user from '../store/types/user'
+	import { IP } from 'src/utils/interaction'
+	
+	import Mytip from './Mytip.vue'
+
 	export default {
 		data () {
 			return {
@@ -55,13 +57,15 @@
 				loadStatu: false,
 				barcode: '',
 				mark: false,
+				barcodeURL: IP + 'utils/valcode',
+				refresh: new Date().valueOf(),
 
 				nameInfo: '',
 				emailInfo: '',
 				phoneInfo: '',
 				passwordInfo: '',
 				rePasswordInfo: '',
-				barcodeInfo : ''
+				barcodeInfo : '',
 			}
 		},
 		components: {
@@ -84,7 +88,7 @@
 					email: this.email,
 					phone: this.phone,
 					password: this.password,
-					barcode: this.barcode,
+					valcode: this.barcode,
 					mark: Number(this.mark)
 				}).then(data => {
 					if(data.state){
@@ -108,12 +112,15 @@
 				this.$emit('to-login')
 			},
 			check () {
-				if(this.userName.trim()=="" || this.email.trim()=="" || this.phone.trim()=="" || this.password.trim()=="" ){
+				if(this.userName.trim()=="" || this.email.trim()=="" || this.phone.trim()=="" || this.password.trim()=="" ||this.barcode.trim()==""){
 					this.$Message.error("请填写好所有的信息")
 					return false
 				}else{
 					return true
 				}
+			},
+			refreshBarcode() {
+				this.refresh = new Date().valueOf()
 			}
 		},
 		watch: {

@@ -1,5 +1,5 @@
 <template>
-	<section class="page-item" :class="{'pointer': testpaperType}" @click="handel">
+	<section class="page-item" :class="{'pointer': testpaperType}" @click="handel"  v-if="showPaper">
 		<p class="title">{{this.type}}</p>
 		<div class="info-wrap">
 			<p>{{this.type}}题目： {{this.testpaperTitle}}</p>
@@ -7,29 +7,40 @@
 			<p>结束时间： {{this.endingTimeFormat}}</p>
 			<p>试卷总分： {{this.testpaperScore}}</p>
 		</div>
-		<span class="delete" @click.stop.prevent="deletePaper"><Icon type="ios-close-outline"></Icon></span>
-		<span class="download" @click.stop.prevent="downloadPaper"><Icon type="ios-download-outline"></Icon></span>
+		<span class="delete" @click.stop.prevent="deleteHandel"><Icon type="ios-close-outline"></Icon></span>
+		<span class="download" @click.stop.prevent="toDownloadPaper"><Icon type="ios-download-outline"></Icon></span>
 	</section>
 </template>
 
 <script>
 	import { IP } from 'src/utils/interaction'
-	import { mapActions} from 'vuex';
+	import { mapState, mapActions} from 'vuex';
+	import user from  '../../store/types/user'
 	import paper from  '../../store/types/paper'
+	import organization from '../../store/types/organization'
 	export default {
 		data () {
 			return {
 				type: '',
-				hasDown: 0
+				hasDown: 0,
+				showPaper: true,
 			}
 		},
 		props: ['createTime', 'endingTime', 'testpaperId', 'testpaperTitle', 'testpaperScore', 'testpaperType','chapterId'],
 		computed: {
+			...mapState({
+				'user' : (state) => state.user,
+				'organization' : (state) => state.organization,
+			}),
+
 			createTimeFormat () {
 				return new Date(this.createTime).toLocaleString().slice(0, -3)
 			},
 			endingTimeFormat () {
 				return new Date(this.endingTime).toLocaleString().slice(0, -3)
+			},
+			excelDownloadURL (state) {
+				return IP + 'quest/'+ state.organization.organizationId +'/export/' + state.testpaperId + '.xlsx'
 			}
 		},
 		methods: {
@@ -47,16 +58,72 @@
 					testpaperScore: this.testpaperScore,
 					testpaperType: this.testpaperType,
 					hasDown: this.hasDown
-				})
-				this.$router.push({
-					name: 'completeStatus',
-				})
+				}).then((data) => {
+                    if(data.state){
+                        this.$router.push({
+							name: 'completeStatus',
+						})
+                    }else{
+                        this.$Message.error(data.info )
+                    }
+                }).catch((err) => {
+                    this.$Message.error(err)
+                })
 			},
-			deletePaper() {
-				alert('delete')
+			deleteHandel() {
+				this.setPaperInfo({
+					createTime: this.createTime,
+					endingTime: this.endingTime,
+					testpaperId: this.testpaperId,
+					testpaperTitle: this.testpaperTitle,
+					testpaperScore: this.testpaperScore,
+					testpaperType: this.testpaperType,
+					hasDown: this.hasDown
+				}).then((data) => {
+                    if(data.state){
+                        this.toDeletePaper()
+                    }else{
+                        this.$Message.error(data.info )
+                    }
+                }).catch((err) => {
+                    this.$Message.error(err)
+                })
 			},
-			downloadPaper() {
-				alert('download')
+			toDeletePaper() {
+				this.deletePaper({
+					testpaperId: this.testpaperId
+				}).then((data) => {
+                    if(data.state){
+                      	this.$Message.success(data.info )
+                      	this.showPaper = false
+                    }else{
+                        this.$Message.error(data.info )
+                    }
+                }).catch((err) => {
+                    this.$Message.error(err)
+                })
+			},
+			toDownloadPaper() {
+				this.downloadPaper({
+					organizationId: this.organization.organizationId,
+					testpaperId: this.testpaperId
+				}).then((data) => {
+                    if(data.state){
+                      	this.download()
+                    }else{
+                        this.$Message.error(data.info )
+                    }
+                }).catch((err) => {
+                    this.$Message.error(err)
+                })
+			},
+			download() {
+				var el = document.createElement('a')
+				el.href = IP + 'excel/'+ this.user.userId +'.xls'
+				el.download = this.testpaperTitle + '.xls'
+				document.body.appendChild(el)
+				el.click()
+				el.parentNode.removeChild(el)
 			}
 		},
 		created () {
