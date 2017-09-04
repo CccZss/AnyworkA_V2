@@ -48,7 +48,6 @@
     import user from '../store/types/user'
     import organization from '../store/types/organization'
     export default {
-    	name: 'app',
     	data () {
             return {
                 activeName: 'students',

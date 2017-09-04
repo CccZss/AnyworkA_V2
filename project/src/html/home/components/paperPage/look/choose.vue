@@ -43,15 +43,7 @@
 				required: true,
 				default: () => {
 					return  {
-						isTrue: false,
 						question: {
-							questionId: -1,
-							content: '',
-							a: '',
-							b: '',
-							c: '',
-							d: '',
-							key: ''
 						}
 					}
 				}

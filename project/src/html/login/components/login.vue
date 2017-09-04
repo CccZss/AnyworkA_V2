@@ -35,11 +35,11 @@
 	export default {
 		data () {
 			return {
-				email: '123456@qq.com',
+				email: 'czs@qq.com',
 				password: '123456',
 				loadStatu: false,
 				barcode: '0',
-				admin: true,
+				admin: false,
 				barcodeURL: IP + 'utils/valcode',
 				refresh: new Date().valueOf(),
 

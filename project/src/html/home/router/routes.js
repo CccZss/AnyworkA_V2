@@ -1,5 +1,6 @@
 const routes = [
-  { path: '*/homepage', 
+  { 
+    path: '*/homepage', 
     redirect: {
       name: 'homepage'
     } 
@@ -10,7 +11,15 @@ const routes = [
     meta: {
       title: 'HOMEPAGE'
     },
-    component: require('../components/homepage.vue')
+    component: require('../components/homepage.vue'),
+    props: {
+      name: {
+        homePage: '首页',
+      },
+      path: {
+        homePage: '/homePage',
+      }
+    },
   },
   {
     name: 'organizationPage',

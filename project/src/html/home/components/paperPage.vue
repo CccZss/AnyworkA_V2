@@ -37,7 +37,7 @@
 			}
 		},
 		methods: {
-		}
+		},
 	}
 </script>
 
@@ -47,7 +47,7 @@
 		height: 100%;
 		min-width: 1000px;
 		margin: auto;
-		padding: 10px;
+		padding: 0 10px;
 		background-color: white;
 		overflow: hidden;
 	}
@@ -73,7 +73,12 @@
 	}
 
 	@media only screen and (max-width: 992px) {
+		.paper-page {
+			width: 100%;
+			min-width: 0;
+		}
 		.paper-info {
+		    padding-top: 1rem;
 			padding-bottom: 1rem;
 		}
 

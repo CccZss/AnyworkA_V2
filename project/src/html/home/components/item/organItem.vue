@@ -223,6 +223,7 @@
 		    max-height: 25rem;
 		    width: 100%;
 		    height: auto;
+		    margin: 0;
 		    box-shadow: 0px 0 18px 0.2px #525252;
 		}
 

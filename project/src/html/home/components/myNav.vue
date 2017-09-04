@@ -1,6 +1,6 @@
 <template>
-	<section>
-		<div class="nav">
+	<section class="nav">
+		<div class="nav-wrap">
 			<a class="logo" href="./home.html#/homepage">
 			</a>
 			<ul class="sub-nav">
@@ -128,11 +128,17 @@
 	    box-shadow: 0 1px 2px 2px rgba(73, 73, 73, 0.38);
 	    z-index: 5;
 	}
+	.nav-wrap {
+		position: relative;
+		width: 70%;
+	    min-width: 1000px;
+	    margin: auto;
+	}
 	.logo{
 		display: inline-block;
 		width: 50px;
 		height: 50px;
-		margin-left: 15%;
+		/*margin-left: 15%;*/
 		vertical-align: middle;
 		background-image: url('~assets/images/logo.png');
 		background-size: contain;
@@ -146,8 +152,9 @@
 		cursor: pointer;
 	}
 	.sub-nav {
-		float: right;
-		margin-right: 15%;
+	    position: absolute;
+	    right: 0;
+	    top: 0;
 	}
 	.select {
 		background-color: #666666;
@@ -161,7 +168,6 @@
 	}
 	.person-info {
 		position: absolute;
-	    right: 15%;
     	top: 48px;
 		background-color: #666666;
 		z-index: 2;
@@ -197,8 +203,11 @@
 		    box-shadow: 0 1px 2px 2px rgba(73, 73, 73, 0.38);
 		    z-index: 5;
 		}
+		.nav-wrap {
+			width: 99%;
+		    min-width: 0;
+		}
 		.logo{
-			margin-left: 0;
 			width: 8rem;
 			height: 8rem;
 		}
@@ -206,9 +215,6 @@
 		    line-height: 8rem;
 		    width: 12rem;
 		}	
-		.sub-nav {
-			margin-right: 0;
-		}
 		.photo img {
 			width: 6rem;
 			height: 6rem;

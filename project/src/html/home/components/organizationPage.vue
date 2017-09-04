@@ -15,9 +15,9 @@
             </div>
         </Menu>
 		<div class="main">
-			<div class="header">
+			<!-- <div class="header">
 				<h2>{{title}}</h2>
-			</div>
+			</div> -->
 			<loading :spinShow="spinShow" />
 			<papers v-show="!spinShow"  :papers="paperList" />
         </div>
@@ -139,7 +139,7 @@
 		height: 100%;
 		min-width: 1000px;
 		margin: auto;
-		padding: 10px;
+		padding: 0 10px;
 		background-color: white;
 	}
 	.header {
@@ -155,6 +155,10 @@
 	}
 	
 	@media only screen and (max-width: 992px) {
+		.organ-page {
+			width: 100%;
+			min-width: 0;
+		}
 		.main {		
 			min-height: 150px;
 		}

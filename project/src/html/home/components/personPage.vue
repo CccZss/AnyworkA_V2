@@ -112,7 +112,7 @@
 			upsuccess () {
 				this.refresh()
 		    },
-		}
+		},
 	}
 </script>
 
@@ -126,7 +126,7 @@
 	.left-section {
 		float: left;
 		width: 280px;
-		padding: 0 10px;
+		padding: 0 10px 0 0;
 		box-sizing: border-box;
 	}
 	.person-info {
@@ -158,7 +158,7 @@
 	.reight-section {
 		float: left;
 		width: calc( 100% - 280px );
-		padding: 0 10px 10px 0;
+		padding: 0 0px 10px 0;
 		box-sizing: border-box;
 	}
 	.main {
@@ -179,6 +179,10 @@
 	}
 
 	@media only screen and (max-width: 992px) {
+		.person-page {
+			width: 100%;
+			min-width: 0;
+		}
 		.left-section {
 			display: none;
 		}

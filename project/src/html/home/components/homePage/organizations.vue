@@ -1,8 +1,8 @@
 <template>
 	<section>
-		<div class="header">
+ 		<div class="header" v-if="title === '搜索结果'">
 			<h2>{{title}}</h2>
-		</div>
+		</div> 
 		<ul key="organization">
 			<li class="organ-item" v-for="organ in organizations"  :key="organ.organizationId">
 				<organitem 

@@ -1,11 +1,9 @@
 import 'babel-polyfill'
 import Vue from 'vue'
+import router from './router/router.js'
 import App from './App'
 import store from './store'
-import router from './router/router.js'
 import iView from 'iview'
-// import 'assets/css/normalize.css'
-// import 'iview/dist/styles/iview.css'
 import 'assets/my-theme/home.less'
 
 Vue.use(iView)

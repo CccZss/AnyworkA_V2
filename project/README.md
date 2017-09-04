@@ -69,3 +69,9 @@ npm test
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+# 需完善 
+1. 回退按钮
+2. 加载动画
+3. 试卷加载时一开始的内容问题
+4. 其他

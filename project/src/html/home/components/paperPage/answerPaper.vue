@@ -164,7 +164,7 @@
 				paperAnswer.push(data)
 				this.paperAnswer = paperAnswer
 			},
-			submitAnswer () {
+			submitAnswer (next) {
 				var data = {
 					studentId: this.user.userId,
 					testpaperId: this.paper.testpaperId,
@@ -179,12 +179,23 @@
 								handel: 'submit'
 							}
 						})
+						if(next) {
+							next()
+						}
 					}else{
 						this.$Message.error(data.info)
 					}
 				}).catch((err) => {
 					this.$Message.error(err)
 				})
+			},
+			toSubmitAnswer() {
+				var r=confirm("提交试卷/离开后将不能再提交，是否继续？");
+				if (r==true){
+				  	this.submitAnswer()
+				}else {
+				  	// alert("You pressed Cancel!");
+				}
 			}
 		},
 		created () {
@@ -205,7 +216,16 @@
 				//在查看答案那里跳转回来的，直接开始做题
 				this.toGetPaperInfo()
 			}
-		}
+		},
+		beforeRouteLeave (to, from, next) {
+		    var r=confirm("提交试卷/离开后将不能再提交，是否继续？");
+			if (r==true){
+			  	this.submitAnswer(next)
+			}else {
+			  	// alert("You pressed Cancel!");
+			}
+	  	}
+
 	}
 </script>
 

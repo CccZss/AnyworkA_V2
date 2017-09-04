@@ -139,11 +139,12 @@
 
 <style scoped>
 	.home-page {
+		position: relative;
 		width: 70%;
 		height: 100%;
 		min-width: 1000px;
 		margin: auto;
-		padding: 10px;
+		padding: 0 10px;
 		background-color: white;
 	}
 
@@ -153,6 +154,10 @@
 		min-height: 120px;
 	}
 	@media only screen and (max-width: 992px) {
+		.home-page {
+			width: 100%;
+			min-width: 0;
+		}
 		.main {		
 			min-height: 150px;
 		}

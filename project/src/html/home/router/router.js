@@ -16,15 +16,8 @@ const router = new VueRouter({
 })
 
 /*router.beforeEach((to, from, next) => {
-  let titleStr = ''
-  if (to.name !== 'Home') {
-    for (let i = to.matched.length - 1; i >= 0; i--) {
-      titleStr += `${to.matched[i].meta.title} - `
-    }
-  }
-  titleStr += title
-  document.title = titleStr
+  console.log(to)
   next()
-})
-*/
+})*/
+
 export default router
