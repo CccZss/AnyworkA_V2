@@ -22,7 +22,7 @@
 		<ul v-show = "showTab === 'program'" v-if="coundAnswer">
 			<program class="question" v-for="(item, index) in programList" :questionItem="item" :index="index" :key="index" @program-answer="answerHandel"/>
 		</ul>
-		<Button class="submit-bt" type="success" size="large" @click="submitAnswer" :disabled="!coundAnswer">提交</Button>
+		<Button class="submit-bt" type="success" size="large" @click="toSubmitAnswer" :disabled="!coundAnswer">提交</Button>
 	</section>
 </template>
 
@@ -164,7 +164,7 @@
 				paperAnswer.push(data)
 				this.paperAnswer = paperAnswer
 			},
-			submitAnswer (next) {
+			submitAnswer () {
 				var data = {
 					studentId: this.user.userId,
 					testpaperId: this.paper.testpaperId,
@@ -179,9 +179,7 @@
 								handel: 'submit'
 							}
 						})
-						if(next) {
-							next()
-						}
+						
 					}else{
 						this.$Message.error(data.info)
 					}
@@ -190,17 +188,21 @@
 				})
 			},
 			toSubmitAnswer() {
-				var r=confirm("提交试卷/离开后将不能再提交，是否继续？");
-				if (r==true){
-				  	this.submitAnswer()
+				if(this.paper.testpaperType === 1){
+					var r=confirm("提交试卷后将不能再提交，是否继续？");
+					if (r==true){
+					  	this.submitAnswer()
+					}else {
+					  	// alert("You pressed Cancel!");
+					}
 				}else {
-				  	// alert("You pressed Cancel!");
+					this.submitAnswer()
 				}
 			}
 		},
 		created () {
 			// 将该试卷提交的答案填入默认答案，因为后台是通过遍历提交的题目id一个个查找，如果有题目没做的话会缺失
-
+			console.log(this.$route.params.doAgain, this.paper.hasDown)
 			if(this.$route.params.doAgain === undefined || !this.$route.params.doAgain){
 				//说明不是回退回来
 				if(!this.paper.hasDown){
@@ -217,14 +219,20 @@
 				this.toGetPaperInfo()
 			}
 		},
-		beforeRouteLeave (to, from, next) {
-		    var r=confirm("提交试卷/离开后将不能再提交，是否继续？");
-			if (r==true){
-			  	this.submitAnswer(next)
-			}else {
-			  	// alert("You pressed Cancel!");
-			}
-	  	}
+		/*beforeRouteLeave (to, from, next) {
+			console.log('bf', this.paper.testpaperType)
+			// 从做题页面离开，但是并没有提交过考试试卷
+		    if(from.name==='answerPaper' && to.name!='lookAnswer' && !this.paper.hasDown && this.paper.testpaperType===1){
+		    	var r=confirm("提交试卷/离开后将不能再提交，是否继续？");
+				if (r==true){
+					next()
+				}else {
+				  	// alert("You pressed Cancel!");
+				}
+		    }else{
+				next()
+		    }
+	  	}*/
 
 	}
 </script>

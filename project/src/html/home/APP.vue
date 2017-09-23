@@ -70,6 +70,10 @@ export default {
 				baseInfo: {
 					name: '修改信息',
 					path: '/personPage/baseInfo'
+				},
+				feedback: {
+					name: '意见反馈',
+					path: '/feedback'
 				}
 			}
 			var myRouter = {
@@ -109,6 +113,10 @@ export default {
 				baseInfo: [
 					pages.homepage,
 					pages.personPage,
+				],
+				feedback: [
+					pages.homepage,
+					pages.feedback
 				]
 			}
             var target = to.path.split('\/').pop()

@@ -29,8 +29,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
         '/anywork': {
-            // target: 'http://10.21.48.11:8080',
-            target: 'http://123.207.228.117:80',
+            target: 'http://10.21.48.11:8080',
+            // target: 'http://123.207.228.117:80',
             changeOrigin: true,
             pathRewrite: {
                 '^/anywork': '/anywork'
