@@ -4,7 +4,8 @@ export default namespace('user', {
     actions: [
     	'login',
     	'register',
-        'updateInfo'
+        'updateInfo',
+        'forgetPassword'
     ],
     mutations: [
         'setInfo',

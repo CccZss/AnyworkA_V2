@@ -12,6 +12,7 @@ export default namespace('organization', {
 
         'getStudentsByOrganId',
         'getStudentTestsById',
+        'getStudentPracticesById',
 
         'getTestsByOrganId',
         'getPracticesByOrganId'

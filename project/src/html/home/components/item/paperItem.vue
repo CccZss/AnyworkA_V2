@@ -1,5 +1,6 @@
 <template>
 	<section class="page-item" @click="handel">
+		<span class="has-down-tip" v-show="hasDown"><Icon type="ios-checkmark"></Icon></span>
 		<p class="title">{{this.type}}</p>
 		<div class="info-wrap">
 			<p>{{this.type}}题目： {{this.testpaperTitle}}</p>
@@ -77,6 +78,13 @@
 	.info-wrap {
 		padding: 5px;
 	}
+	.has-down-tip {
+		position: absolute;
+       	top: -3px;
+    	right: 4px;
+	    color: #ffffff;
+	    font-size: 20px;
+	}
 
 	@media only screen and (max-width: 992px) {
 		.page-item {
@@ -85,6 +93,12 @@
 		    max-height: 20rem; 
 		    margin-bottom: 40px;
 		    box-shadow: 0 0 1rem 1.2px #a09e9e;
+		}
+
+		.has-down-tip {
+		    top: -7px;
+		    right: 11px;
+		    font-size: 3rem;
 		}
 	}
 </style>

@@ -39,6 +39,7 @@
 			...mapState({
 				'student': (state) => state.student,
 				'studentTestList' : (state) => state.organization.studentTestList,
+				'studentPracticeList' : (state) => state.organization.studentPracticeList,
 				'organizationId': state => state.organization.organizationId
  			})
 		},
@@ -49,14 +50,14 @@
 			selectRouter(name) {
 				switch (name) {
 					case 'studentTest' : 
-						this.papersList = this.testsList;
+						this.toGetStudentTestsById();
 						break;
 					case 'studentPractice' :
-						this.papersList = this.practicesList
+						this.toGetStudentPracticesById()
 				}
 			},
-			handelPaperList() {
-				var allPaperList = this.studentTestList;
+/*			handelPaperList() {
+				var allPaperList = ;
 				this.testsList = []
 				this.practicesList = []
 				allPaperList.forEach(item => {
@@ -66,7 +67,7 @@
 						this.practicesList.push(item)
 					}
 				})
-			},
+			},*/
 
 			toGetStudentTestsById() {
 				this.spinShow = true
@@ -76,8 +77,25 @@
 				}).then((data) => {
 					if(data.state){
 						this.spinShow = false
-						this.handelPaperList()
+						this.testsList = this.studentTestList;
 						this.papersList = this.testsList
+					}else{
+						this.$Message.error(data.info)
+					}
+				}).catch((err) => {
+					this.$Message.error(err)
+				})
+			},
+			toGetStudentPracticesById() {
+				this.spinShow = true
+				this.getStudentPracticesById({
+					organizationId: this.organizationId,
+					userId: this.student.studentId
+				}).then((data) => {
+					if(data.state){
+						this.spinShow = false
+						this.practicesList = this.studentPracticeList;
+						this.papersList = this.practicesList
 					}else{
 						this.$Message.error(data.info)
 					}

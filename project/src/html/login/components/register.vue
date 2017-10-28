@@ -112,7 +112,7 @@
 				this.$emit('to-login')
 			},
 			check () {
-				if(this.userName.trim()=="" || this.email.trim()=="" || this.phone.trim()=="" || this.password.trim()=="" ||this.barcode.trim()==""){
+				if(this.userName.trim()=="" || this.email.trim()=="" || this.phone.trim()=="" || this.password.trim()=="" || this.barcode.trim()=="" || this.password.trim() !== this.rePassword.trim()){
 					this.$Message.error("请填写好所有的信息")
 					return false
 				}else{

@@ -12,8 +12,9 @@ const state = {
 	myOrganizationList: [],
 	searchResultList: [],
 	studentsList: [],
-    studentTestList: [],  // 学生在该组织下完成过的试卷
-    organTestList: [],     //组织下的所有试卷
+    studentTestList: [],  // 学生在该组织下完成过的考试试卷
+    studentPracticeList: [],
+    organTestList: [],     //组织下的所有考试
     organPracticeList: []
 }
 
@@ -194,6 +195,33 @@ const actions = {
                  if(res.data.state.toString()==="1"){
                     context.commit(types.mutations.setInfo,{
                         studentTestList: res.data.data,
+                    })
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo}
+                    )
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+            }).catch(function(err){
+                reject(err)
+            })
+        })
+    },
+
+    [types.actions.getStudentPracticesById]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            myAxios({
+                method: 'POST',
+                url: '/organization/studentPracetice',
+                data: data
+            }).then(function(res){
+                 if(res.data.state.toString()==="1"){
+                    context.commit(types.mutations.setInfo,{
+                        studentPracticeList: res.data.data,
                     })
                     resolve({
                         state: true,

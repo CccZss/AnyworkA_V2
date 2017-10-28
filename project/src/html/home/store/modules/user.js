@@ -8,16 +8,30 @@ const state = {
    	phone: '',
     mark: 0,
     userId: undefined,
-    refresh: new Date().getTime()
+    refresh: new Date().getTime(),
+    photo: 'undefined.jpg'
 }
 
 const getters = {
     userPhoto (state) {
-        return   IP + 'picture/' + state.userId +'.jpg?' + state.refresh
+        return IP + 'picture/' + state.photo +'?'+ + state.refresh
     }
 }
 
 const actions = {
+    [types.actions.setPhoto]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            myAxios({
+                method: 'GET',
+                url: '/picture/' + context.state.userId +'.jpg?' + context.state.refresh,
+            }).then((res) => {
+                context.commit(types.mutations.setInfo, { photo: state.userId +'.jpg'})  
+            }).catch((err) => {
+                context.commit(types.mutations.setInfo, { photo: 'undefined.jpg'})
+            })
+        })
+    },
+
     [types.actions.getMyInfo]: (context, data) => {
         //context: commit,dispatch,getters,state
         return new Promise((resolve, reject) => {

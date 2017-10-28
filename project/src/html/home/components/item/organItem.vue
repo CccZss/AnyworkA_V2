@@ -81,6 +81,7 @@
 								if(data.state){
 									this.$Message.success(data.info)
 									this.showJoin = !this.showJoin
+									this.count += 1;
 								}else{
 									this.$Message.error(data.info + ",请稍后重试！")
 								}
@@ -210,6 +211,7 @@
 	.exit-organ {
 	    position: absolute;
 		right: 0;
+		top: -5px;
 		padding: 5px;
 		font-size: 18px;
 		color: rgba(0, 0, 0, 0.22);

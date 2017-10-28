@@ -11,12 +11,12 @@
 		        <Col span="12"><img :src="barcodeURL + '?' + refresh" class="barcode" @click="refreshBarcode"></Col>
 		        <Col span="12">
 		        	<Mytip content="验证码" :info="barcodeInfo">
-		        		<Input class="input" type="text" v-model="barcode" ></Input>
+		        		<Input class="input" type="text" v-model="barcode" placeholder="验证码"></Input>
 		        	</Mytip>
 		        </Col>
 		    </Row>
 			<Button class="login-bt" type="primary" long @click="toLogin" :loading="loadStatu">登陆</Button>
-			<a href="#" class="forget-psw">忘记密码</a>
+			<a href="#" class="forget-psw" @click="forgetPasswork">忘记密码</a>
 			<a href="#" class="register" @click="toRegister">前往注册</a>
 			<Checkbox class="competence" v-model="admin">
 				<Icon type="ios-person-outline"></Icon>
@@ -35,10 +35,10 @@
 	export default {
 		data () {
 			return {
-				email: 'czs@qq.com',
-				password: '123456',
+				email: '',
+				password: '',
 				loadStatu: false,
-				barcode: '0',
+				barcode: '',
 				admin: false,
 				barcodeURL: IP + 'utils/valcode',
 				refresh: new Date().valueOf(),
@@ -125,6 +125,23 @@
 			},
 			refreshBarcode() {
 				this.refresh = new Date().valueOf()
+			},
+			forgetPasswork() {
+				if(this.email.trim()=="") {
+					this.$Message.error("请填写好邮箱");
+					return;
+				}
+				this.forgetPassword({
+					email: this.email
+				}).then(data => {
+					if(data.state){
+						this.$Message.success(data.info)
+					}else {
+						this.$Message.error(data.info)
+					}
+				}).catch(err => {
+					this.$Message.error(err)
+				})
 			}
 
 		},

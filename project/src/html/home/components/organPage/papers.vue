@@ -48,5 +48,8 @@
 		.paper-item {
 			display: block;
 		}
+		.no-info {
+			font-size: 3rem;
+		}
 	}
 </style>

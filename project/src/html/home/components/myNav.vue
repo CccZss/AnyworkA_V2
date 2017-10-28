@@ -11,7 +11,7 @@
 						<span @click="search"><Icon type="ios-search" class="search-bt" color="black"></Icon></span>
 					</div>
 				</li>
-				<li><Icon type="ios-bell-outline"></Icon> 消息</li>
+				<li @click="seeMyInfo"><Icon type="ios-bell-outline"></Icon> 消息</li>
 				<li class="photo" :class="{select: personNav}" @click="togglePersonNav" @mouseleave="hidePersonNav">
 					<img :src="userPhoto">
 					<ul class="person-info" v-show="personNav">
@@ -28,7 +28,7 @@
 <script>
 
 	// @mouseenter="togglePersonNav" @mouseleave="togglePersonNav"
-	// 
+	
 	import {mapState, mapGetters, mapActions} from 'vuex'
 	import user from '../store/types/user'
 	export default { 
@@ -102,6 +102,9 @@
 				}).catch((err) => {
 					this.$Message.error(err)
 				})
+			},
+			seeMyInfo() {
+				this.$Message.info('该功能暂未开放')
 			}
 		},
 
@@ -109,6 +112,7 @@
 			this.getMyInfo().then((data) => {
 				if(data.state){
 					this.$router.push('homepage')
+					this.setPhoto()
 				}else{
 					this.$Message.error(data.info + ",请重新登陆！")
 				}

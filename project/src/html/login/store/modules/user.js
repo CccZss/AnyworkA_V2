@@ -68,6 +68,30 @@ const actions = {
             })
         })
     },
+    [types.actions.forgetPassword]: (context, data) => {
+        return new Promise((resolve, reject) => {
+            myAxios({
+                method: 'POST',
+                url: 'utils/forget',
+                data: data
+            }).then(function(res){
+                if(res.data.state.toString()==="1"){
+                    resolve({
+                        state: true,
+                        info: res.data.stateInfo}
+                    )
+                }else{
+                    resolve({
+                        state: false,
+                        info: res.data.stateInfo}
+                    )
+                }
+                // context.commit(types.mutations.setInfo,res.data.user)
+            }).catch(function(err){
+                reject(err)
+            })
+        })
+    }
 }
 
 const mutations = {

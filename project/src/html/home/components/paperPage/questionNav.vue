@@ -1,20 +1,23 @@
 <template>
-	<ul @click="selectHandel">
-		<p class="title">答题情况</p>
-		<li 
-			v-for="(item, index) in questionList"
-			:class="[
-				{right: item.isTrue && item.question.type <=3},
-				{error: !item.isTrue && item.question.type <=3},
-				{'un-score': item.question.type > 3},
-				{select: index === select}
-			]" 
-			:index = "index"
-			:questionId = "item.question.questionId"
-		>
-			{{index + 1}}
-		</li>
-	</ul>
+	<section>
+		<ul @click="selectHandel">
+			<p class="title">答题情况</p>
+			<li 
+				v-for="(item, index) in questionList"
+				:class="[
+					{right: item.isTrue && item.question.type <=3},
+					{error: !item.isTrue && item.question.type <=3},
+					{'un-score': item.question.type > 3},
+					{select: index === select}
+				]" 
+				:index = "index"
+				:questionId = "item.question.questionId"
+			>
+				{{index + 1}}
+			</li>
+		</ul>
+		<center class="no-question-tip" v-if="questionList <= 0"> ~没有题目~ </center>
+	</section>
 </template>
 
 <script>
@@ -96,6 +99,11 @@
 	.select {
 		border-radius: 20%;
 	}
+	.no-question-tip {
+		font-size: 25px;
+		margin: 20px;
+		letter-spacing: 3px;
+	}
 
 	@media only screen and (max-width: 992px) {
 		.title {
@@ -106,6 +114,10 @@
 	    	height: 6rem;
 	    	line-height: 6rem;
 	    	font-size: 3.2rem;
+		}
+		.no-question-tip {
+			 font-size: 37px;
+
 		}
 	}
 </style>

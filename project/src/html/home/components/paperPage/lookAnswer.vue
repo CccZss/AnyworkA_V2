@@ -7,7 +7,7 @@
 		<span class="socre">
 			客观题得分：<span>{{this.questionAnswerInfo.socre}}</span>
 		</span>
-		<Button class="do-again" type="success" v-if="this.paper.testpaperType===0" @click="doAgain">在做一次</Button>
+		<Button class="do-again" type="success" v-if="this.paper.testpaperType===0" @click="doAgain">再做一次</Button>
 		<question-nav :questionList="questionList" @current-question="showCurrentQuestion"/>
 		<component v-show="hasQuestion" class="question-wrap" :is="questionType" :questionItem="currentQuestion" :index="currentQuestionIndex" :key="currentQuestionIndex"/>
 	</section>
@@ -206,8 +206,10 @@
 
 	@media only screen and (max-width: 992px) {
 		.do-again {
-		    top: -5.6rem;
-    		right: 10px;
+	        top: -5.6rem;
+		    right: 10px;
+		    font-size: 2rem;
+	        padding: 0.5rem 1rem;
 		}
 		.socre {
 			font-size: 2rem;
