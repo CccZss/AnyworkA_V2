@@ -37,6 +37,7 @@
 	.paper-item {
 		display: inline-block;
 		margin: 10px;
+		vertical-align: bottom;
 	}
 	.no-info {
 		margin-top: 30px;

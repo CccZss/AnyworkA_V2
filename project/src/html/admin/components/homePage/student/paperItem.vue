@@ -43,7 +43,8 @@
 <style scoped>
 	.page-item {
 		position: relative;
-		width: 210px;
+		width: 245px;
+		min-height: 150px;
 		box-shadow: 0 0 1px 0.2px #a09e9e;
 		cursor: default;
 	}

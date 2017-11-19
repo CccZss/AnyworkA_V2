@@ -94,7 +94,10 @@
 				}).then((data) => {
 					if(data.state){
 						this.spinShow = false
-						this.practicesList = this.studentPracticeList;
+						// 把被做过的练习分离出来
+						this.practicesList = this.studentPracticeList.filter(item => {
+							return item.ifAttend
+						});
 						this.papersList = this.practicesList
 					}else{
 						this.$Message.error(data.info)

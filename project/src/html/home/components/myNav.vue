@@ -130,7 +130,7 @@
 	    width: 100%;
 	    background-color: #3d444c;
 	    box-shadow: 0 1px 2px 2px rgba(73, 73, 73, 0.38);
-	    z-index: 5;
+	    z-index: 1000;
 	}
 	.nav-wrap {
 		position: relative;
@@ -174,7 +174,7 @@
 		position: absolute;
     	top: 48px;
 		background-color: #666666;
-		z-index: 2;
+		z-index: 1000;
 	}
 	.person-info li{
 		display: block;
@@ -190,7 +190,7 @@
 	    width: 200px;
 	    padding: 0 5px;
         background-color: #666666;
-		z-index: 2;
+		z-index: 1000;
 	}
 	.search-bt {
 	    position: absolute;
@@ -205,7 +205,7 @@
 		    width: 100%;
 		    background-color: #3d444c;
 		    box-shadow: 0 1px 2px 2px rgba(73, 73, 73, 0.38);
-		    z-index: 5;
+		    z-index: 1000;
 		}
 		.nav-wrap {
 			width: 99%;
