@@ -143,6 +143,7 @@
     	margin: .9%;
 		padding: 0 0 25px;
 		box-shadow: 0 0 1px 0.2px #a09e9e;
+		vertical-align: bottom;
 	}
 	.pointer {
 		cursor: pointer;

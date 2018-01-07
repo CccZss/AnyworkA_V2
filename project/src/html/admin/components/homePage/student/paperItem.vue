@@ -47,6 +47,7 @@
 		min-height: 150px;
 		box-shadow: 0 0 1px 0.2px #a09e9e;
 		cursor: default;
+		vertical-align: bottom;
 	}
 	.page-item:hover {
 		box-shadow: 0 0 1px 0.7px #60c793;
