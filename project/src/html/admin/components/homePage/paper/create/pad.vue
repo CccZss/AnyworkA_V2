@@ -12,7 +12,7 @@
 				<span @click="addPad">插入填空<Icon type="plus-circled"></Icon></span>
 			</div>
 			<div class="pads-wrap">
-				<div v-for="(item,padIndex) in pads.length">
+				<div v-for="(item, padIndex) in pads.length">
 					<span class="pad-num">{{padIndex+1}}</span><Input type="text" class="input" v-model="pads[padIndex].val"></Input>
 					<span @click="deletePad(padIndex)"><Icon class="delete_pad" type="close-round"></Icon></span>
 				</div>
@@ -67,7 +67,7 @@
 			addPad: function(e, padVal){
 				var num = Number(this.pads.length) + 1;
 				var text='(___'+num+'___)';
-	            var content = this.content
+	            var content = this.content;
 	            this.pads.push({val: padVal || ''});
 
 	            var obj = this.$refs.content //obj为文本框

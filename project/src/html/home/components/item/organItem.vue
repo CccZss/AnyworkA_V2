@@ -9,7 +9,7 @@
 			<p class="description" :class="{ellipsis : isEllipsis}"><strong>描述：</strong>{{description}}</p>
 			<p class="tip" v-show="showTip" >{{description}}</p>
 		</div>	
-		<p class="count">人数: {{count}}</p>
+		<p class="count">人数: {{studentCount}}</p>
 	</center>
 </template>
 
@@ -24,7 +24,8 @@
 				token: '',
 				showJoin: false,
 				hasExit: false,
-				showTip: false
+				showTip: false,
+				studentCount: this.count,
 			}
 		},
 		props: ['organizationId', 'teacherName', 'organizationName', 'description', 'isJoin', 'count', 'canExit'],
@@ -81,7 +82,7 @@
 								if(data.state){
 									this.$Message.success(data.info)
 									this.showJoin = !this.showJoin
-									this.count += 1;
+									this.studentCount += 1;
 								}else{
 									this.$Message.error(data.info + ",请稍后重试！")
 								}
